@@ -1,0 +1,17 @@
+apiVersion: run.tanzu.vmware.com/v1alpha1 #tkg api endpoint
+kind: TanzuKubernetesCluster #required parameter
+metadata:
+  name: ${input.CLUSTER_NAME}} #cluster name, user defined
+  namespace: ${input.GUEST_CLUSTER_NS}} #supervisor namespace
+spec:
+  distribution:
+    version: v1.16.8 #resolved kubernetes version
+  topology:
+    controlPlane:
+      count: ${input.MASTER_NODE_COUNT}} #number of master nodes
+      class: ${input.MASTER_NODE_SIZE}} #vmclass for master nodes
+      storageClass: v7-storage-policy #storageclass for master nodes
+    workers:
+      count: ${input.WORKER_NODE_COUNT}} #number of worker nodes
+      class: ${input.WORKER_NODE_SIZE}} #vmclass for worker nodes
+      storageClass:  v7-storage-policy #storageclass for worker nodes
